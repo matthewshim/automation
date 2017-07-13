@@ -265,3 +265,4 @@ fdupes -q -n -r /srv/nfs/repos/ /srv/nfs/install/ |
      done
 
 ~/bin/syncgitrepos
+~/bin/hardlinkrepos
