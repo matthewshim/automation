@@ -2187,6 +2187,7 @@ function custom_configuration
             proposal_set_value dns default "['deployment']['dns']['elements']['dns-server']" "[$dnsnodes]"
         ;;
         ipmi)
+            proposal_set_value ipmi default "['attributes']['ipmi']['use_dhcp']" true
             [[ $want_ipmi = 1 ]] && proposal_set_value ipmi default "['attributes']['ipmi']['bmc_enable']" true
         ;;
         keystone)
