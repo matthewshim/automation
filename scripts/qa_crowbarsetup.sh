@@ -1542,6 +1542,9 @@ function onadmin_assign_hp_nodes
             DL360p)
                 if [[ controllern -lt 8 ]] ; then
                     set_node_alias_and_role $n controller$controllern controller
+                    if [[ $controller_raid_volumes -gt 1 ]] ; then
+                        set_node_raid $n $want_raidtype $controller_raid_volumes
+                    fi
                     let controllern++
                 else
                     set_node_alias_and_role $n compute$computen compute
@@ -1599,13 +1602,6 @@ function onadmin_allocate
         set_node_role_and_platform ${controllernodes[1]} "monitoring" $controller_os
     fi
 
-    # setup RAID for all controller nodes
-    if [[ $controller_raid_volumes -gt 1 ]] ; then
-        local controllernode
-        for controllernode in ${controllernodes[@]} ; do
-            set_node_raid $controllernode $want_raidtype $controller_raid_volumes
-        done
-    fi
 
     if [ -n "$want_node_os" ] ; then
         # OS for nodes provided explicitely: assign them successively to the nodes
